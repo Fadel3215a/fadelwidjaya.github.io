@@ -564,6 +564,28 @@ p {
   color: var(--color-text-muted);
 }
 
+.tag-list--wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.feature-groups {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.feature-group h3 {
+  font-size: 0.95rem;
+  margin-bottom: var(--space-xs);
+  color: var(--color-text-muted);
+}
+
+.card .text-link + .text-link {
+  display: inline-block;
+  margin-left: var(--space-md);
+}
+
 /* ==========================================================================
    Education
    ========================================================================== */
