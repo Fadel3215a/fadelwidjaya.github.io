@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AssetPilot AI — a human-in-the-loop AI-assisted digital asset curation portfolio demo. Static GitHub Pages deployment with session-only state and a simulated, provider-abstracted AI analysis layer. Built on Next.js 16 (App Router), React 19, TypeScript, and Tailwind CSS v4.">
+  <meta name="description" content="AssetPilot AI — a human-in-the-loop AI-assisted digital asset curation portfolio demo. Static deployment on Vercel with session-only state and a simulated, provider-abstracted AI analysis layer. Built on Next.js 16 (App Router), React 19, TypeScript, and Tailwind CSS v4.">
   <title>AssetPilot AI — Digital Asset Curation Demo | Fadel Widjaya</title>
   <link rel="stylesheet" href="../../css/style.css">
 </head>
@@ -29,10 +29,10 @@
           full curation workflow — asset library, review workspace, quality scoring, and production
           readiness gates — with a simulated, provider-abstracted AI analysis layer that suggests
           but never decides. Built on Next.js 16 (App Router), React 19, TypeScript, and Tailwind
-          CSS v4, deployed as a static demo on GitHub Pages.
+          CSS v4, deployed live on Vercel.
         </p>
         <p>
-          <a class="btn btn-primary" href="https://assetpilot-fm0i1yfrv-mfadelwb-7727s-projects.vercel.app/" target="_blank" rel="noopener noreferrer">Live demo</a>
+          <a class="btn btn-primary" href="https://assetpilot-ai-ten.vercel.app/" target="_blank" rel="noopener noreferrer">Live demo</a>
           <a class="btn btn-secondary" href="https://github.com/Fadel3215a/assetpilot-ai" target="_blank" rel="noopener noreferrer">GitHub repository</a>
         </p>
       </header>
@@ -49,8 +49,8 @@
           To be explicit about the positioning: AssetPilot AI is <strong>not</strong> a commercial
           product, <strong>not</strong> connected to a real organization, and <strong>not</strong> a
           production enterprise DAM system. It runs entirely in the browser with session-only state
-          — no database, authentication, or external AI APIs — and is deployed as a static site on
-          GitHub Pages.
+          — no database, authentication, or external AI APIs — deployed live at
+          <a href="https://assetpilot-ai-ten.vercel.app/" target="_blank" rel="noopener noreferrer">assetpilot-ai-ten.vercel.app</a>.
         </p>
         <div class="crdl-flow" aria-label="Asset curation workflow">
           <p class="crdl-flow-steps">
@@ -257,14 +257,14 @@
         <h2 id="architecture-heading">Architecture &amp; technology</h2>
         <p>
           AssetPilot AI is a static, client-side application. All state lives in React Context with
-          session-only persistence, and the app is statically exported and served from GitHub Pages.
+          session-only persistence, and the app is statically exported and served from Vercel.
         </p>
         <ul>
           <li><strong>Next.js 16 (App Router):</strong> route structure and static pre-rendering for the demo's routes and seeded assets.</li>
           <li><strong>React 19 + TypeScript:</strong> typed domain model (<code>types/</code>), feature components, and UI primitives.</li>
           <li><strong>Tailwind CSS v4:</strong> styling and responsive layout.</li>
           <li><strong>React Context (session state):</strong> library, curation, and AI analysis state with no persistence layer.</li>
-          <li><strong>GitHub Pages deployment:</strong> GitHub Actions workflow builds and deploys the static <code>out/</code> directory on pushes to <code>main</code>.</li>
+          <li><strong>Vercel deployment:</strong> the static <code>out/</code> build is deployed to Vercel and served at the live demo URL.</li>
         </ul>
       </section>
 
@@ -286,7 +286,7 @@
         <p>
           AssetPilot AI ships as a <strong>live, deployed feature-complete portfolio demo</strong>
           available at
-          <a href="https://assetpilot-fm0i1yfrv-mfadelwb-7727s-projects.vercel.app/" target="_blank" rel="noopener noreferrer">assetpilot-fm0i1yfrv-mfadelwb-7727s-projects.vercel.app</a>.
+          <a href="https://assetpilot-ai-ten.vercel.app/" target="_blank" rel="noopener noreferrer">assetpilot-ai-ten.vercel.app</a>.
           It demonstrates a complete end-to-end curation workflow, from upload and metadata management
           through quality evaluation, AI-assisted review, and production-readiness decisions.
         </p>
@@ -330,7 +330,7 @@
           <li>TypeScript</li>
           <li>Tailwind CSS v4</li>
           <li>React Context</li>
-          <li>GitHub Pages</li>
+          <li>Vercel</li>
           <li>GitHub Actions</li>
         </ul>
       </section>
@@ -339,7 +339,7 @@
       <section aria-labelledby="links-heading">
         <h2 id="links-heading">Links &amp; repository</h2>
         <ul class="case-study-links">
-          <li><a href="https://assetpilot-fm0i1yfrv-mfadelwb-7727s-projects.vercel.app/" target="_blank" rel="noopener noreferrer">assetpilot-fm0i1yfrv-mfadelwb-7727s-projects.vercel.app</a> — Live demo</li>
+          <li><a href="https://assetpilot-ai-ten.vercel.app/" target="_blank" rel="noopener noreferrer">assetpilot-ai-ten.vercel.app</a> — Live demo</li>
           <li><a href="https://github.com/Fadel3215a/assetpilot-ai" target="_blank" rel="noopener noreferrer">github.com/Fadel3215a/assetpilot-ai</a> — GitHub repository</li>
           <li><a href="../../index.html#projects">All portfolio projects</a></li>
         </ul>
@@ -347,7 +347,7 @@
 
       <footer class="case-study-footer">
         <a class="btn btn-secondary" href="../../index.html#projects">← All projects</a>
-        <a class="btn btn-primary" href="https://assetpilot-fm0i1yfrv-mfadelwb-7727s-projects.vercel.app/" target="_blank" rel="noopener noreferrer">Live demo</a>
+        <a class="btn btn-primary" href="https://assetpilot-ai-ten.vercel.app/" target="_blank" rel="noopener noreferrer">Live demo</a>
       </footer>
     </article>
   </main>
