@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AssetPilot AI v1.5.1 — AI-assisted digital asset management platform with masonry grid, hybrid search (pgvector), and real-time SSE telemetry. Built on Next.js 16 and Prisma 7.">
-  <title>AssetPilot AI v1.5.1 — Digital Asset Management | Fadel Widjaya</title>
+  <meta name="description" content="AssetPilot AI v1.5.1 — a live AI-assisted digital asset management platform with human-in-the-loop curation, hybrid semantic search (pgvector), and real-time SSE job telemetry. Built on Next.js 16 (Turbopack), Prisma 7, and NextAuth v5.">
+  <title>AssetPilot AI v1.5.1 — Live Digital Asset Management Platform | Fadel Widjaya</title>
   <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body class="case-study-page">
@@ -22,12 +22,13 @@
   <main id="main" class="case-study">
     <article class="container narrow">
       <header class="case-study-header">
-        <p class="card-label">AI · Digital Asset Management</p>
+        <p class="card-label">AI · Digital Asset Management · Live Product</p>
         <h1>AssetPilot AI v1.5.1 <span class="live-badge">Live</span></h1>
         <p class="lead">
-          A deployed AI-assisted digital asset management platform with a masonry asset grid,
-          hybrid search over semantic embeddings (pgvector), and real-time telemetry —
-          built on Next.js 16 (Turbopack) and Prisma 7.
+          A production-grade, live AI-assisted digital asset management platform. AssetPilot AI
+          combines human-in-the-loop curation, hybrid semantic vector search over 1536-dimensional
+          embeddings, and real-time job execution telemetry — built on Next.js 16 (Turbopack),
+          Prisma 7 + pgvector, and NextAuth v5, deployed on Vercel.
         </p>
         <p>
           <a class="btn btn-primary" href="https://assetpilot-ai-omega.vercel.app/" target="_blank" rel="noopener noreferrer">Live demo</a>
@@ -39,21 +40,24 @@
       <section aria-labelledby="overview-heading">
         <h2 id="overview-heading">Overview</h2>
         <p>
-          AssetPilot AI is a browser-based engineering prototype for organizing, evaluating, and
-          curating digital creative assets. It models a structured operational workflow:
+          AssetPilot AI v1.5.1 is a <strong>live, deployed</strong> digital asset management platform
+          built to make AI-assisted curation accountable and observable. It is not a demo only in the
+          browser — it runs as a full-stack application with a persistent database, real authentication,
+          semantic search, and real-time background job execution.
         </p>
         <div class="crdl-flow" aria-label="Asset curation lifecycle">
           <p class="crdl-flow-steps">
-            Asset ingestion → Metadata extraction → Quality &amp; health checks → Discovery &amp; duplicate detection → Simulated AI analysis → Human curator review → Comparison → Decision → Production readiness
+            Ingestion → Metadata extraction → Hybrid search (keyword + semantic) → AI-assisted curation → Human decision → Live job telemetry
           </p>
         </div>
         <p>
-          The project applies operational process discipline to digital asset operations: establishing
-          clear verification gates, structured data capture, quality standards, and feedback loops.
-          Rather than functioning as a commercial enterprise DAM or physical inventory tool, AssetPilot
-          focuses on workflow integrity, human-in-the-loop interaction patterns, and a swappable
-          AI-provider architecture.
+          The core value proposition rests on three pillars:
         </p>
+        <ul>
+          <li><strong>Human-in-the-loop curation.</strong> AI suggests classifications, observations, and metadata — but every release decision requires explicit curator action. No automated pipeline can override human judgment.</li>
+          <li><strong>Semantic vector search.</strong> Assets are embedded into 1536-dimensional vectors stored in pgvector. A hybrid search dial blends traditional keyword matching with cosine-similarity retrieval so users find assets by <em>meaning</em>, not just by text.</li>
+          <li><strong>Real-time job execution telemetry.</strong> Long-running background jobs (embedding generation, ingestion pipelines) stream progress live to the client over Server-Sent Events (SSE) — giving operators a real-time view of every task as it runs.</li>
+        </ul>
       </section>
 
       <!-- Problem -->
@@ -83,65 +87,93 @@
           AssetPilot is built on a single operating principle: <strong>"AI suggests. You decide."</strong>
         </p>
         <p>
-          The architecture deliberately separates core application logic from intelligence providers
-          and human oversight:
+          Moving from prototype to a live v1.5.1 release meant rebuilding around a real, persistent
+          stack while keeping the curation discipline intact. The architecture separates core
+          application logic, data persistence, intelligence, and human oversight:
         </p>
         <ol>
-          <li><strong>Asset management logic:</strong> Ingestion, format inspection, version indexing, and state mutations.</li>
-          <li><strong>Quality &amp; health logic:</strong> Multi-factor completeness checklists, dimension checks, and readiness scoring.</li>
-          <li><strong>Discovery &amp; comparison logic:</strong> Multi-attribute duplicate candidate detection and keyword/tag relation scoring.</li>
-          <li><strong>AI provider abstraction:</strong> Clean interface boundary isolating analytical inference from UI presentation.</li>
-          <li><strong>Human review &amp; decision-making:</strong> Mandatory curator approval, quality scoring, and feedback logging.</li>
+          <li><strong>Full-stack application layer:</strong> Next.js 16 App Router (Turbopack) with React Server Components for data-fetching performance and a clean route-based API structure.</li>
+          <li><strong>Persistent data layer:</strong> Prisma 7 ORM backed by PostgreSQL (Neon), with <code>pgvector</code> for semantic embeddings and NextAuth v5 for authenticated multi-user access.</li>
+          <li><strong>Search &amp; retrieval:</strong> A hybrid search dial that fuses keyword matching with cosine-similarity over 1536-dimensional vector embeddings.</li>
+          <li><strong>Human review &amp; decision-making:</strong> Mandatory curator approval, decision history, and feedback logging preserved across the rewrite.</li>
+          <li><strong>Observability:</strong> A floating job activity tray streams real-time progress from background tasks over Server-Sent Events.</li>
         </ol>
       </section>
 
       <!-- Product / Solution -->
       <section aria-labelledby="features-heading">
-        <h2 id="features-heading">Product &amp; capabilities</h2>
+        <h2 id="features-heading">Key feature breakdown</h2>
         <div class="feature-groups">
           <article class="feature-group">
-            <h3>Asset ingestion &amp; metadata</h3>
+            <h3>Masonry asset grid</h3>
             <ul class="tag-list tag-list--wrap">
-              <li>Drag-and-drop &amp; file-picker upload</li>
-              <li>Client-side File API metadata extraction</li>
-              <li>Image dimensions &amp; media duration parsing</li>
-              <li>Multi-version management &amp; version switching</li>
-              <li>Metadata editor with live completeness metrics</li>
-              <li>Multi-type support (images, video, audio, 3D, generic)</li>
+              <li>Responsive multi-column layout</li>
+              <li>Adapts column count to viewport width</li>
+              <li>Instant quick-view triggers on interaction</li>
+              <li>Variable-height tiles preserve aspect ratio</li>
+              <li>Keyboard-first grid navigation</li>
             </ul>
+            <p class="placeholder-note">
+              A fluid masonry layout that reflows dynamically, offering a fast, scan-friendly asset
+              library with one-click quick view.
+            </p>
           </article>
           <article class="feature-group">
-            <h3>Quality, discovery &amp; health</h3>
+            <h3>Hybrid search dial</h3>
             <ul class="tag-list tag-list--wrap">
-              <li>5-point real-time asset health panel</li>
-              <li>Metadata-based duplicate candidate detection</li>
-              <li>Weighted related asset discovery</li>
-              <li>Curator quality checklist (0–100 score)</li>
-              <li>Mandatory decision notes for rejections/changes</li>
-              <li>Production-readiness criteria verification gate</li>
+              <li>Keyword + vector retrieval fusion</li>
+              <li>Cosine-similarity over 1536-dim embeddings</li>
+              <li>Adjustable keyword / semantic balance</li>
+              <li>pgvector nearest-neighbor queries</li>
+              <li>Finds assets by meaning, not just text</li>
             </ul>
+            <p class="placeholder-note">
+              A unified search interface blending lexical matching with dense vector retrieval so
+              results reflect semantic intent.
+            </p>
           </article>
           <article class="feature-group">
-            <h3>Simulated AI assistance</h3>
+            <h3>Slide-over asset detail drawer</h3>
             <ul class="tag-list tag-list--wrap">
-              <li>Deterministic tag suggestions</li>
-              <li>Collection alignment suggestions</li>
-              <li>Quality &amp; metadata observations</li>
-              <li>Asset strengths &amp; potential issues summary</li>
-              <li>Side-by-side comparison summary</li>
-              <li>Production readiness recommendation</li>
+              <li>Tabbed inspector panel</li>
+              <li>Metadata tab</li>
+              <li>Renditions tab</li>
+              <li>Decision history tab</li>
+              <li>Opens without leaving the grid context</li>
             </ul>
+            <p class="placeholder-note">
+              A slide-over drawer exposing structured tabs for inspecting metadata, renditions, and
+              the full decision trail of any asset.
+            </p>
           </article>
           <article class="feature-group">
-            <h3>Curator control &amp; operations</h3>
+            <h3>Floating job activity tray</h3>
             <ul class="tag-list tag-list--wrap">
-              <li>Human review queue &amp; dedicated workspace</li>
-              <li>Accept / edit / dismiss suggestion actions</li>
-              <li>Side-by-side asset comparison workspace</li>
-              <li>Bulk asset tagging &amp; collection moves</li>
-              <li>Full decision audit history</li>
-              <li>AI feedback telemetry tracking</li>
+              <li>Real-time progress monitoring</li>
+              <li>Powered by Server-Sent Events (SSE)</li>
+              <li>Live status for background jobs</li>
+              <li>Embedding and ingestion pipeline visibility</li>
+              <li>Dismissible, non-blocking overlay</li>
             </ul>
+            <p class="placeholder-note">
+              A persistent floating tray that streams live progress of background jobs to the client,
+              giving operators real-time execution telemetry.
+            </p>
+          </article>
+          <article class="feature-group">
+            <h3>Hotkey suite</h3>
+            <ul class="tag-list tag-list--wrap">
+              <li><code>⌘K</code> — open search</li>
+              <li><code>Space</code> — quick view preview</li>
+              <li><code>J</code> / <code>K</code> — next / previous</li>
+              <li><code>E</code> — edit asset</li>
+              <li><code>R</code> — open renditions</li>
+              <li><code>?</code> — keyboard shortcuts help</li>
+            </ul>
+            <p class="placeholder-note">
+              A global keyboard shortcut suite enabling fast, keyboard-first navigation without
+              leaving the grid.
+            </p>
           </article>
         </div>
       </section>
@@ -149,7 +181,7 @@
       <!-- Workflow -->
       <section aria-labelledby="workflow-heading">
         <h2 id="workflow-heading">Workflow</h2>
-        <div class="workflow-viz" aria-label="AssetPilot curation workflow">
+        <div class="workflow-viz" aria-label="AssetPilot v1.5.1 workflow">
           <ol class="workflow-steps">
             <li class="workflow-step">
               <span class="workflow-step-label">01</span>
@@ -161,84 +193,80 @@
             </li>
             <li class="workflow-step">
               <span class="workflow-step-label">03</span>
-              <span class="workflow-step-text">Quality &amp; health</span>
+              <span class="workflow-step-text">Embedding generation</span>
             </li>
             <li class="workflow-step">
               <span class="workflow-step-label">04</span>
-              <span class="workflow-step-text">Discovery &amp; duplicates</span>
+              <span class="workflow-step-text">Hybrid search indexing</span>
             </li>
             <li class="workflow-step">
               <span class="workflow-step-label">05</span>
-              <span class="workflow-step-text">Simulated AI analysis</span>
+              <span class="workflow-step-text">AI-assisted curation</span>
             </li>
             <li class="workflow-step">
               <span class="workflow-step-label">06</span>
-              <span class="workflow-step-text">Human review</span>
+              <span class="workflow-step-text">Human review &amp; decision</span>
             </li>
             <li class="workflow-step">
               <span class="workflow-step-label">07</span>
-              <span class="workflow-step-text">Comparison</span>
-            </li>
-            <li class="workflow-step">
-              <span class="workflow-step-label">08</span>
-              <span class="workflow-step-text">Curator decision</span>
+              <span class="workflow-step-text">Decision history recorded</span>
             </li>
             <li class="workflow-step workflow-step--final">
-              <span class="workflow-step-label">09</span>
-              <span class="workflow-step-text">Production ready</span>
+              <span class="workflow-step-label">08</span>
+              <span class="workflow-step-text">Live telemetry &amp; release</span>
             </li>
           </ol>
         </div>
         <p>
-          Assets move from initial drag-and-drop ingestion through client-side property extraction,
-          automated quality scoring, duplicate candidate detection, and assistive analysis before
-          reaching the curator review queue. After curator evaluation or side-by-side comparison,
-          assets satisfying all 5 production criteria are released to the production-ready catalog.
+          Assets move through ingestion and metadata extraction, then an embedding pipeline generates
+          semantic vectors. Once indexed, the hybrid search dial makes assets discoverable by both text
+          and meaning. AI surfaces curation suggestions, the curator makes the final decision, the
+          decision is persisted to history, and a floating job activity tray streams real-time progress
+          of every background task over SSE.
         </p>
       </section>
 
       <!-- Architecture -->
       <section aria-labelledby="architecture-heading">
-        <h2 id="architecture-heading">Architecture &amp; system design</h2>
+        <h2 id="architecture-heading">Architecture &amp; technical architecture</h2>
         <p>
-          AssetPilot AI is implemented as a client-side web application using Next.js App Router,
-          TypeScript, and React Context for centralized in-memory state management:
+          AssetPilot AI v1.5.1 is a full-stack application built on the Next.js App Router. The
+          rewrite moved from client-only state to a persistent, server-backed architecture with a
+          typed database schema, real authentication, and background job execution.
         </p>
-        <div class="crdl-flow" aria-label="AI provider architecture boundary">
+        <div class="crdl-flow" aria-label="Architecture data flow">
           <p class="crdl-flow-steps">
-            Asset Data / Metadata → AIAnalysisProvider (Interface) → AIAnalysisResult → UI &amp; Curator Workspace
+            Next.js App Router (Turbopack) → Route Handlers / Server Components → Prisma 7 ORM → PostgreSQL (Neon, pgvector) &amp; NextAuth v5 → Client (grid / drawer / tray)
           </p>
         </div>
         <ul>
-          <li><strong>Central state store:</strong> <code>AssetsContext</code> coordinates asset collections, version histories, activity streams, comparison records, and AI feedback telemetry.</li>
-          <li><strong>Client-side media pipeline:</strong> Uses the browser <code>File</code> API to inspect MIME types, byte sizes, and file headers, dynamically mounting temporary <code>Blob</code> object URLs with managed lifecycle cleanup.</li>
-          <li><strong>Media renderers:</strong> Direct rendering for native image formats, HTML5 video, and audio players, with structured placeholder states for 3D model formats.</li>
-          <li><strong>AI provider boundary:</strong> The <code>AIAnalysisProvider</code> TypeScript interface decouples all UI components from analysis implementation details.</li>
+          <li><strong>Next.js 16 (Turbopack) App Router:</strong> React Server Components for efficient data fetching, route handlers for API endpoints, and Turbopack for faster builds and development.</li>
+          <li><strong>Prisma 7 database layer with pgvector:</strong> Typed ORM mapping models to a PostgreSQL database. <code>pgvector</code> stores 1536-dimensional embedding vectors per asset and supports vector nearest-neighbor (<code>&lt;-&gt;</code>) queries for semantic retrieval.</li>
+          <li><strong>NextAuth v5 authentication:</strong> Real, persistent user accounts with secure session handling — replacing the single-user prototype with authenticated multi-user access.</li>
+          <li><strong>Vercel production deployment pipeline:</strong> Continuous deployment from GitHub, with serverless functions for API routes and edge-ready caching for static content.</li>
+          <li><strong>Serverless connection pooling via Neon PostgreSQL:</strong> Neon's serverless Postgres with connection pooling keeps the database reachable from short-lived serverless functions without exhausting connections.</li>
+          <li><strong>Node heap memory configuration (4GB):</strong> The runtime is tuned with a 4GB Node.js heap to comfortably handle embedding-heavy and ingestion workloads without memory pressure.</li>
         </ul>
       </section>
 
       <!-- AI Integration -->
       <section aria-labelledby="ai-heading">
-        <h2 id="ai-heading">AI integration &amp; intelligence layer</h2>
+        <h2 id="ai-heading">AI integration &amp; semantic search</h2>
         <p>
-          To ensure technical transparency: the current implementation uses a <strong>simulated,
-          deterministic AI provider</strong> (<code>MockAIAnalysisProvider</code>). It does not connect
-          to external LLM endpoints, computer vision models, or vector databases.
-        </p>
-        <p>
-          Analysis outputs are computed deterministically from asset attributes:
+          In v1.5.1, asset intelligence is driven by <strong>real semantic embeddings</strong> rather
+          than a simulated provider. Each asset is embedded into a 1536-dimensional vector and stored
+          in PostgreSQL via <code>pgvector</code>, enabling retrieval by meaning.
         </p>
         <ul>
-          <li><strong>Tag recommendations:</strong> Derived by evaluating asset type mapping tables, collection taxonomy keywords, and AI-origin flags.</li>
-          <li><strong>Quality observations:</strong> Evaluated against completeness rules, version thresholds, and previous review statuses.</li>
-          <li><strong>Comparison summaries:</strong> Generated by computing score deltas, format differences, and metadata completeness ratios between paired assets.</li>
-          <li><strong>Readiness suggestions:</strong> Rule-based verification evaluating whether review decisions and metadata prerequisites align with release criteria.</li>
+          <li><strong>Embedding generation:</strong> Assets are processed by an embedding pipeline that produces 1536-dimensional vectors capturing semantic content.</li>
+          <li><strong>Vector storage:</strong> Embeddings persist in a <code>vector(1536)</code> column indexed for approximate nearest-neighbor search.</li>
+          <li><strong>Hybrid retrieval:</strong> A search dial combines traditional keyword/text matching with cosine-similarity vector queries, returning assets ranked by blended relevance.</li>
+          <li><strong>Semantic suggestions:</strong> The AI layer surfaces curation suggestions grounded in vector similarity to other reviewed assets, while remaining strictly advisory.</li>
         </ul>
         <p>
-          <strong>Architectural value:</strong> By defining a formal <code>AIAnalysisProvider</code> contract,
-          the application decouples presentation components from the analysis source. A production implementation
-          can replace <code>MockAIAnalysisProvider</code> with a real multimodal inference provider (such as a
-          vision-language model or embedding service) without refactoring UI views or curation workflows.
+          <strong>Why human-in-the-loop:</strong> Semantic retrieval accelerates discovery and helps
+          curators surface candidates, but every approval, edit, and release decision remains an
+          explicit human action. The AI improves efficiency without removing accountability.
         </p>
       </section>
 
@@ -246,13 +274,14 @@
       <section aria-labelledby="hitl-heading">
         <h2 id="hitl-heading">Human-in-the-loop design</h2>
         <p>
-          AI-generated insights are presented strictly as suggestions requiring curator action:
+          AI-generated insights are presented strictly as suggestions requiring curator action —
+          a principle that carried over from prototyping to production:
         </p>
         <ul>
-          <li>Curators can <strong>Accept</strong>, <strong>Edit</strong>, or <strong>Dismiss</strong> individual tag suggestions and observations.</li>
-          <li>Curator responses are tracked as session telemetry (<code>aiStats</code>) to quantify interaction efficiency.</li>
-          <li>Approval, change requests, and rejection are exclusively human-triggered actions requiring curator notes.</li>
-          <li>No automated logic or AI suggestion can bypass the curator or auto-promote an asset to production status.</li>
+          <li>Curators can <strong>Accept</strong>, <strong>Edit</strong>, or <strong>Dismiss</strong> individual AI suggestions and observations.</li>
+          <li>Every curator decision is recorded in a persistent decision history (<code>decision history</code>) for full auditability.</li>
+          <li>Approval, change requests, and rejection are exclusively human-triggered actions requiring curator input.</li>
+          <li>No automated pipeline can bypass the curator or auto-promote an asset to a released state.</li>
         </ul>
       </section>
 
@@ -260,12 +289,12 @@
       <section aria-labelledby="contribution-heading">
         <h2 id="contribution-heading">My contribution</h2>
         <ul>
-          <li><strong>Workflow &amp; domain modeling:</strong> Designed the multi-stage asset curation lifecycle, mapping operational verification principles into a digital product architecture.</li>
-          <li><strong>AI provider architecture:</strong> Structured the TypeScript provider interface boundary to isolate analytical logic from presentation layers.</li>
-          <li><strong>Deterministic analysis engine:</strong> Implemented the algorithms for tag generation, observations, and side-by-side comparison summaries.</li>
-          <li><strong>Discovery &amp; duplicate algorithms:</strong> Built multi-attribute duplicate candidate detection and weighted relationship scoring based on metadata overlap.</li>
-          <li><strong>Quality &amp; release gates:</strong> Implemented the 5-point asset health scoring model and production-readiness criteria evaluation.</li>
-          <li><strong>Interactive curation UI:</strong> Built the review workspace, side-by-side comparison interface, and feedback telemetry logging.</li>
+          <li><strong>Full-stack architecture:</strong> Designed and built the Next.js 16 App Router application, Prisma 7 schema, and route-handler API surface.</li>
+          <li><strong>Semantic search:</strong> Implemented the embedding pipeline and pgvector storage for 1536-dimensional vectors, and the hybrid keyword/vector search dial.</li>
+          <li><strong>Authentication &amp; persistence:</strong> Integrated NextAuth v5 for secure multi-user access and a persistent PostgreSQL (Neon) data layer replacing the prototype's in-memory state.</li>
+          <li><strong>Real-time telemetry:</strong> Built the floating job activity tray and Server-Sent Events (SSE) channel streaming live progress of background jobs.</li>
+          <li><strong>Keyboard-first UX:</strong> Implemented the global hotkey suite (⌘K, Space, J/K, E, R, ?) and responsive masonry grid with slide-over detail drawer.</li>
+          <li><strong>Production deployment:</strong> Configured the Vercel pipeline, Neon connection pooling, and 4GB Node heap for embedding-heavy workloads.</li>
         </ul>
       </section>
 
@@ -273,11 +302,12 @@
       <section aria-labelledby="decisions-heading">
         <h2 id="decisions-heading">Key engineering decisions</h2>
         <ul>
-          <li><strong>Provider boundary over hardcoded logic:</strong> Introducing the <code>AIAnalysisProvider</code> interface ensures the AI layer remains swappable for future real inference endpoints.</li>
-          <li><strong>Deterministic analysis for prototyping:</strong> Enabled complete end-to-end UX demonstration, repeatable testing, and zero external latency or API cost.</li>
-          <li><strong>Client-side state &amp; object URLs:</strong> Avoided complex server and storage infrastructure for a prototype by managing in-memory state and browser blob URL lifecycles directly.</li>
-          <li><strong>Rule-based multi-factor similarity:</strong> Delivered predictable, transparent duplicate and relation scoring using metadata fingerprints without requiring external vector database overhead.</li>
-          <li><strong>Strict human governance:</strong> Enforced mandatory human notes and checklist criteria on status transitions to maintain curation accountability.</li>
+          <li><strong>pgvector over a dedicated vector database:</strong> Storing 1536-dimensional embeddings directly in PostgreSQL keeps the stack simple and transactional while supporting semantic retrieval.</li>
+          <li><strong>Hybrid search over vector-only retrieval:</strong> Blending keyword and cosine-similarity ranking covers exact-name lookups and fuzzy semantic matches in one interface.</li>
+          <li><strong>Server-Sent Events over WebSockets:</strong> SSE provides one-way real-time telemetry to the client with minimal infrastructure, ideal for monitoring background jobs.</li>
+          <li><strong>Neon serverless Postgres with connection pooling:</strong> Keeps the database reachable from Vercel serverless functions without connection exhaustion at scale.</li>
+          <li><strong>4GB Node heap configuration:</strong> Sized the runtime to handle embedding generation and large ingestion batches without memory pressure.</li>
+          <li><strong>Strict human governance:</strong> Mandatory curator decisions on all state transitions maintain curation accountability in a production, multi-user system.</li>
         </ul>
       </section>
 
@@ -285,27 +315,29 @@
       <section aria-labelledby="outcome-heading">
         <h2 id="outcome-heading">Outcome</h2>
         <p>
-          The result is a functional engineering prototype that demonstrates how structured metadata,
-          deterministic asset intelligence, and an AI provider boundary can support a human-led digital
-          asset curation workflow.
+          AssetPilot AI v1.5.1 ships as a <strong>live, deployed production application</strong>
+          available at
+          <a href="https://assetpilot-ai-omega.vercel.app/" target="_blank" rel="noopener noreferrer">assetpilot-ai-omega.vercel.app</a>.
+          It demonstrates how a full-stack DAM can combine human accountability with real semantic
+          intelligence and observable, real-time operations.
         </p>
         <p>
-          AssetPilot successfully validates that AI-assisted tooling is most effective when architected as
-          a decision-support mechanism—accelerating cataloging and surfacing relevant observations while
-          preserving human responsibility for quality and release.
+          The platform validates that AI-assisted curation is most effective when the technology
+          accelerates discovery and surfaces relevant candidates while preserving final responsibility
+          with a human curator — now backed by a persistent database, real authentication, and live
+          job telemetry rather than browser-only state.
         </p>
       </section>
 
       <!-- Limitations -->
       <section aria-labelledby="limitations-heading">
-        <h2 id="limitations-heading">Challenges &amp; technical limitations</h2>
+        <h2 id="limitations-heading">Challenges &amp; technical considerations</h2>
         <ul>
-          <li><strong>In-memory session state:</strong> Uploaded assets, review decisions, and edits are stored in client memory and reset upon page refresh.</li>
-          <li><strong>No backend database or authentication:</strong> Operates as a single-curator client application without user accounts or persistent cloud storage.</li>
-          <li><strong>Simulated AI:</strong> Intelligence is deterministic and rule-based; it does not utilize trained machine learning models, computer vision, or external LLM APIs.</li>
-          <li><strong>Metadata-based similarity:</strong> Duplicate detection and related asset scoring match structured text and numeric attributes rather than perceptual visual hashes or neural embeddings.</li>
-          <li><strong>Media preview boundaries:</strong> Native rendering is supported for images, video, and audio; 3D formats use fallback visual placeholders rather than an interactive WebGL viewport.</li>
-          <li><strong>Scope:</strong> Designed as an engineering prototype to evaluate workflow and interaction patterns, not an enterprise commercial DAM.</li>
+          <li><strong>Serverless cold starts:</strong> Vercel serverless functions can impose cold-start latency on first requests; mitigations focus on efficient static/data caching where possible.</li>
+          <li><strong>Embedding pipeline cost &amp; latency:</strong> Generating 1536-dimensional embeddings for large libraries is compute- and time-intensive, making the background job/telemetry system essential.</li>
+          <li><strong>Vector index tuning:</strong> Approximate nearest-neighbor (ANN) indexing trades a small amount of recall for query speed — balancing index settings with retrieval quality is an ongoing consideration.</li>
+          <li><strong>Connection management:</strong> Relying on Neon connection pooling ensures serverless functions stay within connection limits under concurrent load.</li>
+          <li><strong>Scope:</strong> Built as a focused vertical DAM platform; it intentionally does not attempt to be a generic enterprise application server.</li>
         </ul>
       </section>
 
@@ -317,10 +349,12 @@
           <li>React</li>
           <li>TypeScript</li>
           <li>Prisma 7 + pgvector</li>
-          <li>Hybrid Search</li>
-          <li>Masonry Grid</li>
-          <li>Real-time SSE Telemetry</li>
+          <li>NextAuth v5</li>
+          <li>Neon PostgreSQL</li>
+          <li>Server-Sent Events (SSE)</li>
+          <li>Hybrid Semantic Search</li>
           <li>Vercel</li>
+          <li>Node 4GB heap</li>
         </ul>
       </section>
 
