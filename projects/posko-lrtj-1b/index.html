@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Case study: Automated WhatsApp Operational Log Ingestion & Structuring Pipeline (POSKO LRTJ 1B) — real-time AI ETL pipeline for LRT Jakarta Phase 1B monitoring reports.">
+  <title>Automated WhatsApp Operational Log Pipeline (POSKO LRTJ 1B) — Fadel Widjaya</title>
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body class="case-study-page">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="../../index.html">Fadel Widjaya</a>
+      <nav class="site-nav site-nav--case-study" aria-label="Case study">
+        <a class="text-link case-study-back" href="../../index.html#projects">← Back to projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="case-study">
+    <article class="container narrow">
+      <header class="case-study-header">
+        <p class="card-label">Real-Time Data Engineering · Multi-Model AI Pipeline</p>
+        <h1>Automated WhatsApp Operational Log Ingestion &amp; Structuring Pipeline (POSKO LRTJ 1B)</h1>
+        <p class="lead">
+          An automated end-to-end pipeline that ingests, parses, and structures unstructured daily
+          monitoring reports from the POSKO LRT Jakarta Phase 1B WhatsApp coordination group into a
+          centralized Google Sheets database.
+        </p>
+      </header>
+
+      <section aria-labelledby="exec-summary-heading">
+        <h2 id="exec-summary-heading">Executive Summary</h2>
+        <p>
+          Built an automated end-to-end operational pipeline to ingest, parse, and structure
+          unstructured daily monitoring reports from the POSKO LRT Jakarta Phase 1B WhatsApp
+          coordination group into a centralized Google Sheets database. Replaced manual log
+          transcription across multiple operational sub-systems (TPSS, Platform Screen Doors, OCC
+          Signaling, and LRV) with real-time AI field extraction, automated schema routing, and
+          dual-channel notification loops.
+        </p>
+      </section>
+
+      <section aria-labelledby="architecture-heading">
+        <h2 id="architecture-heading">System Architecture &amp; Data Flow</h2>
+        <div class="code-window">
+          <p class="code-window-lang">text</p>
+<pre class="code-window-body"><code>[ WhatsApp Group: POSKO LRTJ 1B ]               │
+               ▼ (Live Socket Event / Baileys WS)
+[ Node.js Listener ] ──► (Filter: Group JID &amp; Keyword Regex)
+               │
+               ▼ (HTTP POST /process-report)
+[ FastAPI Backend Engine ]
+               ├── 1. Deduplication Check (In-Memory Hash Filter)
+               ├── 2. LLM Parsing (Gemini API with Fallback Cascade)
+               └── 3. Dynamic Column Mapping &amp; Schema Matching
+               │
+               ├────────────────────────┬────────────────────────┐
+               ▼                        ▼                        ▼
+     [ Google Sheets API ]    [ Google Chat Webhook ]   [ Outbound WhatsApp ]
+     (TPSS, PSD, OCC, LRV)     (Real-Time Alert Space)   (Confirmation Loop)</code></pre>
+        </div>
+      </section>
+
+      <section aria-labelledby="highlights-heading">
+        <h2 id="highlights-heading">Key Technical Highlights &amp; Engineering Decisions</h2>
+
+        <h3>Event-Driven Real-Time Ingestion (Node.js + Baileys)</h3>
+        <ul>
+          <li>Engineered a lightweight Node.js daemon using Baileys to hook into WhatsApp Web sockets.</li>
+          <li>Implemented targeted JID filtering (<code>120363429448950939@g.us</code>) and regex-based header identification (<code>LAPORAN HARIAN</code>, <code>MONITORING</code>, <code>LOG OCC</code>) to eliminate noise and casual messages.</li>
+          <li>Built session auto-reconnection with Exponential Backoff and a local HTTP management API for backfilling missed messages.</li>
+        </ul>
+
+        <h3>Fault-Tolerant AI Extraction Cascade (FastAPI + Google Gemini API)</h3>
+        <ul>
+          <li>Designed a multi-tier fallback architecture (<code>gemini-3.8-flash</code> → <code>gemini-3-flash-preview</code> → <code>gemini-3.1-flash-lite</code>) to guarantee structured JSON output during 429 Rate Limits or 503 API spikes.</li>
+          <li>Handled Indonesian railway terminology and varied shift formatting deterministically, extracting over 20+ operational parameters per report type without hardcoded regex rules.</li>
+        </ul>
+
+        <h3>Schema-Aware Tab Routing &amp; State Persistence (Google Sheets API)</h3>
+        <ul>
+          <li>Automated header matching and dynamic row insertion across distinct sheet tabs (<code>TPSS</code>, <code>PSD_PLATFORM</code>, <code>OCC_SIGNALING</code>, <code>Log_LRV</code>).</li>
+          <li>Implemented custom SSL socket pool refreshing (<code>cache_discovery=False</code>) and retry loops to prevent transport drops during long AI fallback delays.</li>
+          <li>Integrated an in-memory deduplication layer to skip redundant posts during bulk imports and live socket retries.</li>
+        </ul>
+
+        <h3>Dual-Mode Operation (Live Sync &amp; Historical Bulk Import)</h3>
+        <ul>
+          <li>Developed a companion bulk import CLI tool (<code>bulk_upload.py</code>) to process multi-month historical <code>.txt</code> chat exports, normalizing legacy data backlogs into the active operational sheet.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="tech-stack-heading">
+        <h2 id="tech-stack-heading">Tech Stack</h2>
+        <div class="table-wrap">
+          <table class="tech-table">
+            <thead>
+              <tr>
+                <th scope="col">Layer</th>
+                <th scope="col">Technologies &amp; Tools</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Backend Framework</th>
+                <td>Python 3.12, FastAPI, Uvicorn, Pydantic</td>
+              </tr>
+              <tr>
+                <th scope="row">Ingestion Engine</th>
+                <td>Node.js, Baileys (@whiskeysockets/baileys), Express</td>
+              </tr>
+              <tr>
+                <th scope="row">Artificial Intelligence</th>
+                <td>Google Gemini API (google-genai), OpenCode Zen Fallback</td>
+              </tr>
+              <tr>
+                <th scope="row">Storage &amp; Integrations</th>
+                <td>Google Sheets API (googleapiclient), Google Chat Webhooks</td>
+              </tr>
+              <tr>
+                <th scope="row">Environment &amp; Tooling</th>
+                <td>PowerShell, Git, Virtualenv</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section aria-labelledby="metrics-heading">
+        <h2 id="metrics-heading">Key Metrics &amp; Impact</h2>
+        <ul>
+          <li><strong>100% Data Structuring Automation:</strong> Converted raw, unstructured multi-line text messages into 20+ normalized relational spreadsheet columns automatically.</li>
+          <li><strong>Near-Zero Data Loss:</strong> Achieved fault tolerance across API rate limits and network socket resets using an asynchronous 120-second request timeout window and model cascades.</li>
+          <li><strong>Eliminated Manual Reporting Bottleneck:</strong> Reduced report log latency from manual end-of-shift typing to under 15 seconds real-time ingestion.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="resume-heading">
+        <h2 id="resume-heading">Resume / LinkedIn Bullet Points</h2>
+        <ul>
+          <li><strong>Automated Railway Site Data Pipeline:</strong> Engineered a real-time ETL pipeline using FastAPI, Node.js (Baileys), and Google Gemini AI to auto-parse unstructured WhatsApp operational updates into Google Sheets for LRT Jakarta Phase 1B.</li>
+          <li><strong>Resilient Multi-Model AI Extraction:</strong> Built a deterministic LLM cascade architecture (gemini-flash models) with automated failover logic, ensuring 100% uptime and zero dropped records during API quota exhaustion.</li>
+          <li><strong>Dynamic Database Routing:</strong> Implemented schema-aware dynamic column mapping and SSL socket retry logic across 4+ operational domain tabs (TPSS, PSD, OCC, LRV), handling automated deduplication and historical backfill processing.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="links-heading">
+        <h2 id="links-heading">Links</h2>
+        <ul class="case-study-links">
+          <li><a href="../../index.html#projects">All projects</a></li>
+          <li><a href="../../index.html#experience">Professional experience</a></li>
+        </ul>
+      </section>
+
+      <footer class="case-study-footer">
+        <a class="btn btn-secondary" href="../../index.html#projects">← All projects</a>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> Muhhammad Fadel Widjaya Baslin</p>
+      <nav class="footer-links" aria-label="Social links">
+        <a class="footer-link" href="https://github.com/Fadel3215a" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="footer-link" href="https://linkedin.com/in/muhhammad-fadel-widjaya-baslin" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a class="footer-link" href="mailto:mfadelwb@gmail.com">Email</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../../js/script.js"></script>
+</body>
+</html>
